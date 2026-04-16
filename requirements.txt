@@ -1,0 +1,36 @@
+# Core dependencies
+numpy>=1.24.0
+pandas>=2.0.0
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Diffusion models
+diffusers>=0.25.0
+transformers>=4.35.0
+accelerate>=0.25.0
+
+# Image processing
+Pillow>=10.0.0
+opencv-python>=4.8.0
+scikit-image>=0.21.0
+
+# Scientific computing
+scipy>=1.11.0
+scikit-learn>=1.3.0
+
+# Distribution fitting
+distfit>=1.6.0
+
+# Medical imaging
+torchxrayvision>=1.2.0
+lpips>=0.1.4
+
+# Evaluation metrics
+torchmetrics>=1.2.0
+
+# Visualization
+matplotlib>=3.7.0
+tqdm>=4.65.0
+
+# Utilities
+typing_extensions>=4.8.0
