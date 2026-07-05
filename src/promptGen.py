@@ -14,7 +14,7 @@ Pipeline role:
 
 Consumers:
     - :mod:`inpaintGen` — calls :func:`generate_prompt` when ``label_as_prompt=False``.
-    - :mod:`maskGen` — calls :func:`get_restrictions` in :meth:`Mask.generate_mask`.
+    - :mod:`maskGen` — calls :func:`get_restrictions` in :meth:`maskGen.Mask.main`.
 
 Coordinate convention:
     Restriction boxes use percentage coordinates relative to the lung segmentation crop,
@@ -43,15 +43,17 @@ prompts_red_dict = {
     'Atelectasis': {
         'texts' : [
             'Bibasilar atelectasis.', 'Left basilar atelectasis.', 'Basilar atelectasis.', 
-            'Bibasilar subsegmental atelectasis.', 'Right basilar atelectasis.', 'Left lower lobe atelectasis.', 
-            'Atelectasis in the lung bases.', 'Left basilar subsegmental atelectasis.', 'Streaky bibasilar atelectasis.', 
-            'Subsegmental atelectasis.', 'Linear bibasilar atelectasis.', 'Atelectasis.', 'Left lower lobe collapse.', 
-            'Right lower lobe atelectasis.', 'Right basilar subsegmental atelectasis.', 'Patchy bibasilar atelectasis.', 
+            'Bibasilar subsegmental atelectasis.', 'Right basilar atelectasis.', 
+            'Left lower lobe atelectasis.', 'Atelectasis in the lung bases.', 
+            'Left basilar subsegmental atelectasis.', 'Streaky bibasilar atelectasis.', 
+            'Subsegmental atelectasis.', 'Linear bibasilar atelectasis.', 'Atelectasis.', 
+            'Left lower lobe collapse.', 'Right lower lobe atelectasis.', 
+            'Right basilar subsegmental atelectasis.', 'Patchy bibasilar atelectasis.', 
             'Right upper lobe collapse.', 'Right middle lobe collapse.'
         ],
         'probs': [
-            0.6406, 0.1647, 0.038, 0.0341, 0.038, 0.018, 0.0106, 0.0053, 0.0042, 0.0042, 0.0063, 0.0158, 0.0032, 0.0021, 
-            0.0042, 0.0063, 0.0022, 0.0022
+            0.6406, 0.1647, 0.038, 0.0341, 0.038, 0.018, 0.0106, 0.0053, 0.0042, 0.0042, 0.0063, 
+            0.0158, 0.0032, 0.0021, 0.0042, 0.0063, 0.0022, 0.0022
         ]
     },
     'Cardiomegaly': {
@@ -66,8 +68,8 @@ prompts_red_dict = {
             'Left lower lobe consolidation.', 'Right lower lobe consolidation.', 
             'Patchy consolidation in the mid left lung.', 'Patchy consolidation in the right lung.', 
             'Patchy consolidation in the right lower lobe.', 'Left consolidation.', 
-            'Patchy bilateral pulmonary consolidations.', 'Bilateral consolidations.', 'Right middle lobe consolidation.', 
-            'Right upper lobe consolidation.'
+            'Patchy bilateral pulmonary consolidations.', 'Bilateral consolidations.', 
+            'Right middle lobe consolidation.', 'Right upper lobe consolidation.'
         ],
         'probs': [0.3064, 0.2401, 0.0704, 0.0704, 0.1232, 0.0352, 0.0352, 0.0340, 0.0511, 0.0340]
     },
@@ -81,27 +83,29 @@ prompts_red_dict = {
     'Lung Opacity': {
         'texts': [
             'Right lower lobe infiltrate.', 'Right lower lobe opacity.', 'Left lower lobe opacity.', 
-            'Bilateral lower lobe infiltrates.', 'Left lower lobe infiltrate.', 'Patchy bilateral pulmonary opacities.', 
-            'Patchy left lower lobe opacity.', 'Bibasilar opacities.', 
-            'Patchy ground-glass opacities at the right lung base.', 'Left basilar opacity.', 'Right basilar opacity.', 
-            'Lower lung opacity.', 'Patchy ground-glass opacities in the left lower lung.', 
-            'Patchy bibasilar opacities.'
+            'Bilateral lower lobe infiltrates.', 'Left lower lobe infiltrate.', 
+            'Patchy bilateral pulmonary opacities.', 'Patchy left lower lobe opacity.', 
+            'Bibasilar opacities.', 'Patchy ground-glass opacities at the right lung base.', 
+            'Left basilar opacity.', 'Right basilar opacity.', 'Lower lung opacity.', 
+            'Patchy ground-glass opacities in the left lower lung.', 'Patchy bibasilar opacities.'
         ],
         'probs': [
-            0.1635, 0.1499, 0.1908, 0.0681, 0.0681, 0.0514, 0.0681, 0.0409, 0.0386, 0.0273, 0.0273, 0.0273, 0.0257, 0.053
+            0.1635, 0.1499, 0.1908, 0.0681, 0.0681, 0.0514, 0.0681, 0.0409, 0.0386, 0.0273, 0.0273, 
+            0.0273, 0.0257, 0.053
         ]
     },
     'Pleural Effusion': {
         'texts': [
-            'Bilateral pleural effusions.', 'Right pleural effusion.', 'Left pleural effusion.', 'Right effusion.', 
-            'Bilateral effusions.', 'Right-sided pleural effusion.', 'Left-sided pleural effusion.', 'Left effusion.'
+            'Bilateral pleural effusions.', 'Right pleural effusion.', 'Left pleural effusion.', 
+            'Right effusion.', 'Bilateral effusions.', 'Right-sided pleural effusion.', 
+            'Left-sided pleural effusion.', 'Left effusion.'
         ],
         'probs': [0.3979, 0.2429, 0.2351, 0.0388, 0.031, 0.0284, 0.0207, 0.0052]
     },
     'Pneumothorax': {
         'texts': [
-            'Right apical pneumothorax.', 'Left apical pneumothorax.', 'Right pneumothorax.', 'Left pneumothorax.', 
-            'Pneumothorax.', 'Apical pneumothorax.', 'Bilateral pneumothoraces.'
+            'Right apical pneumothorax.', 'Left apical pneumothorax.', 'Right pneumothorax.', 
+            'Left pneumothorax.', 'Pneumothorax.', 'Apical pneumothorax.', 'Bilateral pneumothoraces.'
         ],
         'probs': [0.3472, 0.3208, 0.1774, 0.1245, 0.0151, 0.0075, 0.0075]
     }
@@ -174,7 +178,8 @@ def get_from_dict(section: str, direction: str, invert_left: bool) -> list[BBox]
         lrestriction = restrictions_dict[f'left {section}']
         if invert_left:
             lrestriction = (
-                (abs(100 - lrestriction[1][0]), lrestriction[0][1]), (abs(100 - lrestriction[0][0]), lrestriction[1][1])
+                (abs(100 - lrestriction[1][0]), lrestriction[0][1]), 
+                (abs(100 - lrestriction[0][0]), lrestriction[1][1])
             )
         restrictions.append(lrestriction)
     return restrictions
