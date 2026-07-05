@@ -1,0 +1,116 @@
+{
+    "Atelectasis": {
+        "location": ["Right Lung", "Left Lung"],
+        "center": {
+            "symmetry": true,
+            "distr": "1D"
+        },
+        "wh": {
+            "minimum": [26.3621, 0.0],
+            "bandwidth": [-18.0723, 0, -23.4875, -30.4701],
+            "symmetry": true,
+            "distr": "2D"
+        },
+        "adapt": {
+            "vindrcxr": {
+                "height/width": 1.21
+            }
+        }
+    },
+    "Consolidation": {
+        "location": ["Right Lung", "Left Lung"],
+        "center": {
+            "symmetry": true,
+            "distr": "1D"
+        },
+        "wh": {
+            "minimum": [0.0, 0.0],
+            "bandwidth": [-13.9032, -3.3898, -20.9932, -20.5776],
+            "symmetry": true,
+            "distr": "2D"
+        }
+    },
+    "Edema": {
+        "location": ["Right Lung", "Left Lung"],
+        "center": {
+            "symmetry": true,
+            "distr": "2D"
+        },
+        "wh": {
+            "minimum": [0.0, 0.0],
+            "bandwidth": [-20.4469, -6.5272, -24.3464, -15.3242],
+            "symmetry": true,
+            "distr": "2D"
+        }
+    },
+    "Lung Opacity": {
+        "location": ["Right Lung", "Left Lung"],
+        "center": {
+            "symmetry": true,
+            "distr": "1D"
+        },
+        "wh": {
+            "minimum": [0.0, 0.0],
+            "bandwidth": [-16.2760, -7.3329, -20.1867, -9.9656],
+            "symmetry": true,
+            "distr": "2D"
+        }
+    },
+    "Pleural Effusion": {
+        "location": ["Right Lung", "Left Lung"],
+        "center": {
+            "symmetry": true,
+            "distr": "1D"
+        },
+        "wh": {
+            "minimum": [27.0303, 0.0],
+            "bandwidth": [-19.3387, 0, -20.4545, -29.0493],
+            "symmetry": true,
+            "distr": "1D"
+        },
+        "adapt": {
+            "vindrcxr": {
+                "height/width": 1.46
+            },
+            "mimiccxr": {
+                "height/width": 0.78
+            }
+        }
+    },
+    "Pneumothorax": {
+        "location": ["Right Lung", "Left Lung"],
+        "center": {
+            "symmetry": true,
+            "distr": "2D"
+        },
+        "wh": {
+            "minimum": [4.7956, 0.0],
+            "bandwidth": [-25.0716, -8.2923, -20.5911, -17.0810],
+            "symmetry": true,
+            "distr": "2D"
+        }
+    },
+    "Cardiomegaly": {
+        "location": ["Heart"],
+        "wh": {
+            "minimum": [49.0215, 38.0827],
+            "distr": "1D"
+        },
+        "adapt": {
+            "vindrcxr": {
+                "height/width": 0.38,
+                "y/height": 0.64
+            },
+            "mimiccxr": {
+                "height/width": 0.64,
+                "y/height": 0.64
+            }
+        }
+    },
+    "Lungs": {
+        "location": ["Right Lung", "Left Lung"]
+    },
+    "Heart": {
+        "location": ["Heart"]
+    }
+}

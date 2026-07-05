@@ -1,0 +1,89 @@
+{
+    "version": "v1",
+    "metadata": {
+        "general": "../data/mimic-cxr/mimic-cxr-2.0.0-metadata.csv",
+        "labels": "../data/mimic-cxr/mimic-cxr-2.0.0-chexpert.csv",
+        "bbox": "../data/mimic-cxr/MS_CXR_Local_Alignment_v1.0.0.csv",
+        "segmentation": "../data/chexmask/",
+        "segmentation_ids": "../data/chexmask/IDs.pkl",
+        "classification": "../data/mimic-cxr/mimic-cxr_controlled.csv",
+        "inpaint": "../data/img-mask-promptv1.csv"
+    },
+    "imgsize": 512,
+    "priors": {
+        "from_raw": true,
+        "1D_distr": ["norm", "genextreme", "expon", "gamma", "pareto", "loggamma", "lognorm", "beta", "t", "uniform"],
+        "2D_distr": "MVLN",
+        "savepath": "../results/priors/"
+    },
+    "mask_segment": {
+        "filter": null,
+        "config_label": "./configs/masks.json",
+        "savepath": "../results/masks{}/"
+    },
+    "inpaint": {
+        "pipeline": "InpaintAfterPipeline",
+        "nsamples": 100,
+        "imgpath": "../data/mimic-cxr-jpg/",
+        "savepath": "../results/inpainting{}/",
+        "modelpath": "./models/roentgen",
+        "device": "cuda",
+        "num_inference_steps": 50,
+        "guidance_scale": 7.5,
+        "strength": 1.0,
+        "batch_size": 8,
+        "label_as_prompt": true,
+        "labels": ["Atelectasis", "Cardiomegaly", "Consolidation", "Edema", "Lung Opacity", "Pleural Effusion", "Pneumothorax"],
+        "use_negative_prompt": false
+    },
+    "evaluation": {
+        "classifier": [["ResNet", "resnet50-res512-all"], ["DenseNet", "densenet121-res224-all"]],
+        "detector": "faster_rcnn_R_50_FPN_3x_20240208_025814+",
+        "class2idx": "class2idx_all",
+        "class2idx_all": {
+            "Atelectasis": 1,
+            "Cardiomegaly": 3,
+            "Consolidation": 5,
+            "Edema": 6,
+            "Infiltration": 10,
+            "Lung opacity": 11,
+            "Pleural effusion": 16,
+            "Pneumothorax": 18
+        },
+        "class2idx_philip": {
+            "Atelectasis": 1,
+            "Cardiomegaly": 2,
+            "Consolidation": 5,
+            "Edema": 6,
+            "Infiltration": 10,
+            "Lung opacity": 13,
+            "Pleural effusion": 19,
+            "Pneumothorax": 17
+        },
+        "savepath": "../results/evaluation{}/",
+        "vindcxrmap": {
+            "vindrcxr/Aortic enlargement": "Aortic enlargement",
+            "vindrcxr/Atelectasis": "Atelectasis",
+            "vindrcxr/Calcification": "Calcification",
+            "vindrcxr/Cardiomegaly": "Cardiomegaly",
+            "vindrcxr/Clavicle fracture": "Clavicle fracture",
+            "vindrcxr/Consolidation": "Consolidation",
+            "vindrcxr/Edema": "Edema",
+            "vindrcxr/Emphysema": "Emphysema",
+            "vindrcxr/Enlarged PA": "Enlarged PA",
+            "vindrcxr/ILD": "ILD",
+            "vindrcxr/Infiltration": "Infiltration",
+            "vindrcxr/Lung Opacity": "Lung opacity",
+            "vindrcxr/Lung cavity": "Lung cavity",
+            "vindrcxr/Lung cyst": "Lung cyst",
+            "vindrcxr/Mediastinal shift": "Mediastinal shift",
+            "vindrcxr/Nodule/Mass": "Nodule/Mass",
+            "vindrcxr/Pleural effusion": "Pleural effusion",
+            "vindrcxr/Pleural thickening": "Pleural thickening",
+            "vindrcxr/Pneumothorax": "Pneumothorax",
+            "vindrcxr/Pulmonary fibrosis": "Pulmonary fibrosis",
+            "vindrcxr/Rib fracture": "Rib fracture",
+            "vindrcxr/Other lesion": "Other lesion"
+        }
+    }
+}
