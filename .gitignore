@@ -1,0 +1,81 @@
+# Results and outputs
+data/
+src/models/
+
+# Build artifacts
+dist/
+build/
+*.log
+
+# System-generated files
+.DS_Store
+Thumbs.db
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# IDE settings
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Distribution / packaging
+*.egg-info/
+*.egg
+.eggs/
+pip-wheel-metadata/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Type checking
+.mypy_cache/
+.pytype/
+
+# Documentation
+docs/_build/
+
+# Data files (may be large)
+*.csv
+*.pkl
+*.pickle
+*.npz
+*.npy
+*.h5
+*.hdf5
+!src/configs/*.json
+
+# Image outputs (keep configs, ignore generated images)
+*.png
+*.jpg
+*.jpeg
+
+# Model weights (large files)
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
